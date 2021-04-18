@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <!-- basic -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <!-- mobile metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+          <!-- site metas -->
+        <title>Cart</title>
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta name="author" content="">
+          <!-- bootstrap css -->
+        <link rel="stylesheet" href="{% static 'craftapp/css/bootstrap.min.css' %}">
+          <!-- style css -->
+        <link rel="stylesheet" href="{% static 'craftapp/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'craftapp/css/cart.css' %}">
+          <!-- Responsive-->
+        <link rel="stylesheet" href="{% static 'craftapp/css/responsive.css' %}">
+          <!-- fevicon -->
+        <link rel="icon" href="{% static 'craftapp/images/fevicon.png' %}" type="image/gif" />
+          <!-- Scrollbar Custom CSS -->
+        <link rel="stylesheet" href="{% static 'craftapp/css/jquery.mCustomScrollbar.min.css' %}">
+          <!-- Tweaks for older IEs-->
+        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+          <!-- owl stylesheets --> 
+        <link rel="stylesheet" href="{% static 'craftapp/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'craftapp/css/owl.theme.default.min.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+          <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript">
+          var user = '{{request.user}}'
+
+          function getToken(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                      }
+                  }
+                }
+                return cookieValue;
+            }
+            const csrftoken = getToken('csrftoken');
+        </script>
+  </head>
+
+
+       <!-- body -->
+   <body class="main-layout">
+          <!-- loader  -->
+        <div class="loader_bg">
+            <div class="loader"><img src="{% static 'craftapp/images/loading.gif' %}" alt="#" /></div>
+        </div>
+          <!-- end loader -->
+          <!-- header -->
+        <header class="section">
+             <!-- header inner -->
+            <div class="header_main">
+                <div class="header_main">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                                <div class="full">
+                                    <div class="center-desk">
+                                        <div class="logo"> <a href="index.html"><img src="{% static 'craftapp/images/logo.png' %}" alt="#"></a> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                                <div class="menu-area">
+                                    <div class="limit-box">
+                                        <nav class="main-menu">
+                                            <ul class="menu-area-main">
+                                                <li> <a href="index.html">Home</a> </li>
+                                                <li> <a href="about.html">About</a> </li>
+                                                <li><a href="testmonial.html">Testmonial</a></li>
+                                                <li><a href="clients.html">Shop</a></li>
+                                                <li><a href="contact.html">Contact Us</a></li>
+                                                <li><a href="{% url 'cart' %}">
+                                                      <img  id="cart-icon" src="{% static 'craftapp/images/cart.png' %}">
+                                                      <p id="cart-total">{{cartItems}}</p>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- end header inner -->
+        </header>
+          <!-- end header -->
+          {% block content %}
+
+          {% endblock content %}
+      <!-- footer start-->
+        <div id="plant" class="footer layout_padding">
+            <div class="container">
+                <p>© 2019 All Rights Reserved. Design by<a href="https://html.design/"> Free Html Templates</a></p>
+            </div>
+        </div>
+      <!-- Javascript files-->
+        <script src="{% static 'craftapp/js/jquery.min.js' %}"></script>
+        <script src="{% static 'craftapp/js/popper.min.js' %}"></script>
+        <script src="{% static 'craftapp/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'craftapp/js/jquery-3.0.0.min.js' %}"></script>
+        <script src="{% static 'craftapp/js/plugin.js' %}"></script>
+      <!-- sidebar -->
+        <script src="{% static 'craftapp/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+        <script src="{% static 'craftapp/js/custom.js' %}"></script>
+      <!-- javascript --> 
+        <script src="{% static 'craftapp/js/owl.carousel.js' %}"></script>
+        <script src="{% static 'craftapp/js/cart.js' %}"></script>
+        <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+        <script>
+            $(document).ready(function(){
+            $(".fancybox").fancybox({
+            openEffect: "none",
+            closeEffect: "none"
+             });
+         
+            $(".zoom").hover(function(){
+         
+            $(this).addClass('transition');
+             }, function(){
+         
+            $(this).removeClass('transition');
+             });
+             });
+         
+        </script> 
+    </body>
+</html>

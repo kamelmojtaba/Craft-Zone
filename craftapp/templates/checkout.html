@@ -1,0 +1,199 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+        <div class="container wrapper">
+          <div class="row cart-head">
+            <div class="container">
+              <div class="row">
+                <p></p>
+              </div>
+              <div class="row">
+                <div style="display: table; margin: auto;">
+                  <span class="step step_complete"> <a href="{% url 'cart' %}" class="check-bc">Cart</a> <span class="step_line step_complete"> </span> <span class="step_line backline"> </span> </span>
+                  <span class="step step_complete"> <a href="#" class="check-bc">Checkout</a> <span class="step_line "> </span> <span class="step_line step_complete"> </span> </span>
+                  <span class="step_thankyou check-bc step_complete">Thank you</span>
+                </div>
+              </div>
+              <div class="row">
+                <p></p>
+              </div>
+            </div>
+          </div>    
+          <div class="row cart-body">
+            <form id="form" class="form-horizontal" method="post" action="">
+              {% csrf_token %}
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-push-6 col-sm-push-6">
+                    <!--REVIEW ORDER-->
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    Review Order <div class="pull-right"><small><a class="btn btn-lg btn-primary" href="{% url 'cart' %}" role="button">Edit cart</a></small></div>
+                  </div>
+                  <div class="panel-body">
+                  {% for item in items %}
+                    <div class="form-group">
+                      <div class="col-sm-3 col-xs-3">
+                        <img class="img-responsive" src="{{item.product.imageURL}}" />
+                      </div>
+                      <div class="col-sm-6 col-xs-6">
+                        <div class="col-xs-12">{{item.product.name}}</div>
+                        <div class="col-xs-12"><small>Quantity:<span>{{item.qunatity}}</span></small></div>
+                      </div>
+                      <div class="col-sm-3 col-xs-3 text-right">
+                        <h6><span>SDG</span>{{item.product.price}}</h6>
+                      </div>
+                    </div>
+                  {% endfor %}
+                      </div>
+                      <div class="form-group"><hr /></div>
+                      <div class="form-group">
+                        <div class="col-xs-12">
+                          <strong>Order Total</strong>
+                            <div class="pull-right"><span>SDG</span><span>{{order.get_cart_total|floatformat:2}}</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    <!--REVIEW ORDER END-->
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-pull-6 col-sm-pull-6">
+                    <!--SHIPPING METHOD-->
+                  <div class="panel panel-info">
+                    <div class="panel-heading">Address</div>
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <div class="col-md-12">
+                            <h4>Shipping Address</h4>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-12"><strong>Country:</strong></div>
+                          <div class="col-md-12">
+                            <input type="text" class="form-control" name="country" value="" />
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-6 col-xs-12">
+                            <strong>First Name:</strong>
+                            <input type="text" name="first_name" class="form-control" value="" />
+                          </div>
+                          <div class="span1"></div>
+                          <div class="col-md-6 col-xs-12">
+                            <strong>Last Name:</strong>
+                            <input type="text" name="last_name" class="form-control" value="" />
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-12"><strong>Address:</strong></div>
+                          <div class="col-md-12">
+                            <input type="text" name="address" class="form-control" value="" />
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-12"><strong>City:</strong></div>
+                            <div class="col-md-12">
+                              <input type="text" name="city" class="form-control" value="" />
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-md-12"><strong>State:</strong></div>
+                            <div class="col-md-12">
+                              <input type="text" name="state" class="form-control" value="" />
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-md-12"><strong>Phone Number:</strong></div>
+                            <div class="col-md-12"><input type="text" name="phone_number" class="form-control" value="" /></div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-md-12"><strong>Email Address:</strong></div>
+                            <div class="col-md-12"><input type="email" name="email_address" class="form-control" value="" /></div>
+                          </div>
+                          <div id="form-btn" class="form-group">
+                            <div  class="pull-left"><small><input type="submit" name="continue" value="continue" class="btn btn-lg btn-primary"> </small></div>
+                          </div>
+                          <div id="payment" class="form-group ">
+                            <div  class="pull-left"><small>
+                              <button class="btn btn-lg btn-primary ">Pay</button> 
+                            </small></div>
+                          </div>
+                        </div>
+                      </div>
+                    <!--SHIPPING METHOD END-->
+                    <!--PAYMENT METHOD START
+                    <div id="payment" class="hidden">
+                      <h4> pay </h4>
+                    </div>-->
+                </div>
+                
+              </form>
+            </div>
+            <div class="row cart-footer">
+        
+            </div>
+    </div>
+<script type="text/javascript">
+  var form = document.getElementById('form')
+  var total = '{{order.get_cart_total}}'
+  csrftoken = form.getElementsByTagName('input')[0].value
+  console.log('New csrftoken', form.getElementsByTagName('input')[0].value)
+
+  form.addEventListener('submit', function (e) {
+    e.prrvrntDefault()
+    console.log('Form submited...')
+    document.getElementById('form-btn').classList.add('hidden')
+    document.getElementById('payment').classList.remove('hidden')
+  })
+
+  document.getElementById('payment').addEventListener('click', function(e){
+    submitFormData()
+  })
+  function submitFormData(){
+    console.log('PAY NOW')
+
+    var UserFormData = {
+      'first_name': null,
+      'last_name': null,
+      'email_address': null,
+      'total': total,
+
+    }
+
+    var shippingInfo = {
+      'country': null,
+      'address': null,
+      'city': null,
+      'state': null,
+      'phone_number': null,
+
+    }
+
+    shippingInfo.country = form.country.value
+    shippingInfo.address = form.address.value
+    shippingInfo.city = form.city.value
+    shippingInfo.state = form.state.value
+    shippingInfo.phone_number = form.phone_number.value
+
+    UserFormData.first_name = form.first_name.value
+    UserFormData.last_name = form.last_name.value
+    UserFormData.email_address = form.email_address.value
+
+    var url = '/process_order/'
+    fetch(url, {
+      method : 'POST',
+      headers : {
+        'Content-Type' : 'application/json',
+        'X-CSRFToken' : csrftoken,
+      },
+      body:JSON.stringify({'form':UserFormData, 'shipping':shippingInfo })
+    })
+
+
+    .then((response) => response.json)
+    .then((data) => {
+      console.log('Success:', data);
+      alart('Tranaction completed');
+      window.location.href = "{% url 'index' %}"
+    })
+  }
+</script>
+{% endblock content %}

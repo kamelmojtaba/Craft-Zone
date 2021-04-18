@@ -1,0 +1,106 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Craft Zone CART</h1>
+        </div>
+    </section>
+
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col"> </th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Available</th>
+                                <th scope="col" class="text-center">Quantity</th>
+                                <th scope="col" class="text-right">Price</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items %}
+                                <tr>
+                                    <td><img class="image-st" src="{{item.product.imageURL}}" /> </td>
+                                    <td>{{item.product.name}}</td>
+                                    <td>In stock</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-light update-cart dis " data-product = {{item.product.id}} data-action = "add"> + </button>
+                                        <h6 class="dis">{{item.qunatity}}</h6>
+                                        <button class="btn btn-sm btn-light update-cart dis " data-product = {{item.product.id}} data-action = "remove"> - </button>
+                                    </td>
+                                    <td class="text-right">{{item.product.price|floatformat:2}} SD</td>
+                                    <td class="text-right">
+                                        <button class="btn btn-sm btn-danger fa fa-trash" data-product = {{item.product.id}} data-action = "delete"></button> 
+                                    </td>
+                                </tr>
+                                <!--<tr>
+                                    <td><img class="image-st" src="https://dummyimage.com/50x50/55595c/fff" /> </td>
+                                    <td>Product Name Toto</td>
+                                    <td>In stock</td>
+                                    <td><input class="form-control" type="text" value="1" /></td>
+                                    <td class="text-right">33,90 €</td>
+                                    <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+                                </tr>
+                                <tr>
+                                    <td><img class="image-st" src="https://dummyimage.com/50x50/55595c/fff" /> </td>
+                                    <td>Product Name Titi</td>
+                                    <td>In stock</td>
+                                    <td><input class="form-control" type="text" value="1" /></td>
+                                    <td class="text-right">70,00 €</td>
+                                    <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+                                </tr>-->
+
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-right">
+                                        <h6>Sub-Total
+                                        {{item.get_total|floatformat:2}} SDG</h6>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Shipping</td>
+                                <td class="text-right">6,90 €</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><strong>Total</strong></td>
+                                <td class="text-right"><strong>{{ order.get_cart_total|floatformat:2 }} SDG</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col mb-2">
+                <div class="row">
+                    <div class="col-sm-12  col-md-6">
+                        <a href="{% url 'index' %}">
+                            <button href="" class="btn btn-block btn-light">Continue Shopping</button>
+                        </a>
+                    </div>
+                    <div class="col-sm-12 col-md-6 text-right">
+                        <a href="{% url 'checkout' %}">
+                            <button  class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
