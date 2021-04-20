@@ -14,7 +14,7 @@ def index(request):
 	else:
 		items = []
 		order = {'get_cart_total' :0 , }
-		cartItems = order['get_cart_items']
+		cartItems = order['get_cart_total']
 
 
 	products = Product.objects.all()
