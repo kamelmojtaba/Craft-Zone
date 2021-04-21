@@ -1,10 +1,15 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 import json
 from .models import *
 import datetime
 
+from django.urls import reverse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
+# remove this ==> @login_required <== if you don't want the index page to require login
+@login_required
 def index(request):
 	if request.user.is_authenticated:
 		customer = request.user.customer
@@ -133,8 +138,32 @@ def processOrder(request):
 			print('user is not logged in ')
 		return JsonResponse('payment done', safe=False)
 
-def login(request):
+def login_page(request):
 	return render(request, 'LogIn.html', {})
 
 def signup(request):
 	return render(request, 'signUp.html', {})
+
+def user_login(request):
+	if request.method == 'POST':
+		username = request.POST.get('username')
+		password = request.POST.get('password')
+
+		user = authenticate(username=username, password=password)
+
+		if user:
+			if user.is_active:
+				login(request, user)
+				return HttpResponseRedirect(reverse('index'))
+
+			else:
+				return HttpResponse("Account not active! ")
+		else:
+			return HttpResponse("invalid login details!")
+	else:
+		return render(request, 'craftapp/login.html')
+
+@login_required
+def user_logout(request):
+	logout(request)
+	return HttpResponseRedirect(reverse('index'))

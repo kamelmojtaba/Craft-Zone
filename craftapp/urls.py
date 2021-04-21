@@ -1,5 +1,8 @@
 from django.urls import path
+from django.conf.urls import url
 from . import views
+
+app_name = 'craftapp'
 
 urlpatterns = [
     path('', views.index, name="index"),
@@ -12,6 +15,7 @@ urlpatterns = [
     path('checkout.html', views.checkout, name="checkout"),
     path('update_item/', views.updateItem, name="update_item"),
     path('process_order/', views.processOrder, name="process_order"),
-    path('LogIn.html', views.login, name="LogIn"),
+    path('LogIn.html', views.login_page, name="LogIn"),
+    url('user_login', views.user_login, name='user_login'),
     path('signUp.html', views.signup, name="signUp"),
 ]
