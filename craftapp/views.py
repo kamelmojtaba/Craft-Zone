@@ -9,8 +9,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-# remove this ==> @login_required <== if you don't want the index page to require login
-@login_required
+
 def index(request):
 
 	data = cartData(request)

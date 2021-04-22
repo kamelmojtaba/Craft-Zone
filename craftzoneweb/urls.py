@@ -7,8 +7,8 @@ from django.conf import settings
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('craftapp.urls')),
+    path('admin/', admin.site.urls),
     path('index.html', views.index, name="index" ),
     path('contact.html', views.contact, name="contact"),
     path('clients.html', views.clients, name="clients"),
