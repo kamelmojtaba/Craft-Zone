@@ -138,30 +138,8 @@ def processOrder(request):
 			print('user is not logged in ')
 		return JsonResponse('payment done', safe=False)
 
-def login_page(request):
-	return render(request, 'LogIn.html', {})
-
 def signup(request):
 	return render(request, 'signUp.html', {})
-
-def user_login(request):
-	if request.method == 'POST':
-		username = request.POST.get('username')
-		password = request.POST.get('password')
-
-		user = authenticate(username=username, password=password)
-
-		if user:
-			if user.is_active:
-				login(request, user)
-				return HttpResponseRedirect(reverse('index'))
-
-			else:
-				return HttpResponse("Account not active! ")
-		else:
-			return HttpResponse("invalid login details!")
-	else:
-		return render(request, 'craftapp/login.html')
 
 @login_required
 def user_logout(request):

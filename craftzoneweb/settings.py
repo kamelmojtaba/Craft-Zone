@@ -127,4 +127,6 @@ MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 
-LOGIN_URL = 'craftapp/user_login'
+LOGIN_URL = 'LogIn.html'
+
+LOGIN_REDIRECT_URL = "index"
