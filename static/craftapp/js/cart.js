@@ -1,27 +1,6 @@
 var updateBtns = document.getElementsByClassName('update-cart')
 
-// (function ($) {
-
-//     /*------------------
-//         Preloader
-//     --------------------*/
-//     $(window).on('load', function () {
-//         $(".loader").fadeOut();
-//         $("#preloder").delay(200).fadeOut("slow");
-
-//         /*------------------
-//             Gallery filter
-//         --------------------*/
-//         $('.featured__controls li').on('click', function () {
-//             $('.featured__controls li').removeClass('active');
-//             $(this).addClass('active');
-//         });
-//         if ($('.featured__filter').length > 0) {
-//             var containerEl = document.querySelector('.featured__filter');
-//             var mixer = mixitup(containerEl);
-//         }
-//     });
-    
+// Btns Control 
 for(var i = 0; i < updateBtns.length; i++){
   updateBtns[i].addEventListener('click', function(){
     var productId = this.dataset.product
@@ -36,7 +15,7 @@ for(var i = 0; i < updateBtns.length; i++){
   })
 
 }
-
+// Add Items To Cookies 
 function addCookieItem(productId, action){
   console.log("Not Logged in...")
 
@@ -61,7 +40,7 @@ function addCookieItem(productId, action){
   location.reload()
 }
 
-
+// User Order Update 
 function updateUserOrder(productId, action){
   console.log('User is loged in')
 
@@ -84,3 +63,29 @@ function updateUserOrder(productId, action){
     location.reload()
   })
 }
+ // Category 
+
+
+ (function ($) {
+
+  /*------------------
+      Preloader
+  --------------------*/
+  $(window).on('load', function () {
+      $(".loader").fadeOut();
+      $("#preloder").delay(200).fadeOut("slow");
+
+      /*------------------
+          Gallery filter
+      --------------------*/
+      $('.featured__controls li').on('click', function () {
+          $('.featured__controls li').removeClass('active');
+          $(this).addClass('active');
+      });
+      if ($('.featured__filter').length > 0) {
+          var containerEl = document.querySelector('.featured__filter');
+          var mixer = mixitup(containerEl);
+      }
+  });
+
+})(jQuery);
