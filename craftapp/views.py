@@ -3,6 +3,7 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 import json
 from .models import *
 import datetime
+from .utils import cookiCart, cartData
 
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
@@ -11,19 +12,11 @@ from django.contrib.auth.decorators import login_required
 # remove this ==> @login_required <== if you don't want the index page to require login
 @login_required
 def index(request):
-	if request.user.is_authenticated:
-		customer = request.user.customer
-		order, created = Order.objects.get_or_create(customer=customer, complete=False)
-		items = order.orderitem_set.all()
-		cartItems = order.get_cart_items
-	else:
-		items = []
-		order = {'get_cart_total' :0 , }
-		cartItems = order['get_cart_items']
 
+	data = cartData(request)
+	cartItems = data['cartItems']
 
-	products = Product.objects.all()
-	context= {'products' :products, 'cartItems' : cartItems , }
+	context= { 'cartItems' : cartItems , }
 	return render(request, 'index.html', context)
 
 def contact(request):
@@ -39,19 +32,12 @@ def contact(request):
 
 
 def clients(request):
-	if request.user.is_authenticated:
-		customer = request.user.customer
-		order, created = Order.objects.get_or_create(customer=customer, complete=False)
-		items = order.orderitem_set.all()
-		cartItems = order.get_cart_items
-	else:
-		items = []
-		order = {'get_cart_total' :0 , }
-		cartItems = order['get_cart_items']
+	data = cartData(request)
+	cartItems = data['cartItems']
 
 
 	products = Product.objects.all()
-	context= {'products' :products, 'cartItems' : cartItems , }
+	context= {'products' :products, 'cartItems' : cartItems ,   }
 	return render(request, 'clients.html', context)
 
 def testmonial(request):
@@ -61,26 +47,21 @@ def about(request):
 	return render(request, 'about.html', {})
 
 def cart(request):
-	if request.user.is_authenticated:
-		customer = request.user.customer
-		order, created = Order.objects.get_or_create(customer=customer, complete=False)
-		items = order.orderitem_set.all()
-	else:
-		items = []
-		order = {'get_cart_total' :0 , }
-	context= {'items' :items, 'order' : order}
+	data = cartData(request)
+	cartItems = data['cartItems']
+	order = data['order']
+	items = data['items']
+
+	context= {'items' :items, 'order' : order , 'cartItems': cartItems , }
 	return render(request, 'cart.html', context)
 
 def checkout(request):
-	if request.user.is_authenticated:
-		customer = request.user.customer
-		order, created = Order.objects.get_or_create(customer=customer, complete=False)
-		items = order.orderitem_set.all()
-	else:
-		items = []
-		order = {'get_cart_total' :0 , }
+	data = cartData(request)
+	cartItems = data['cartItems']
+	order = data['order']
+	items = data['items']
 
-	context= {'items' :items, 'order' : order}
+	context= {'items' :items, 'order' : order, 'cartItems': cartItems ,}
 	return render(request, 'checkout.html', context)
 
 

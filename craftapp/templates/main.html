@@ -42,7 +42,8 @@
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
         <script type="text/javascript">
           var user = '{{request.user}}'
-
+        </script>
+        <script type="text/javascript">
           function getToken(name) {
             let cookieValue = null;
             if (document.cookie && document.cookie !== '') {
@@ -59,6 +60,32 @@
                 return cookieValue;
             }
             const csrftoken = getToken('csrftoken');
+
+          </script>
+          <script type="text/javascript">
+          function getCookie(name){
+            // split cookie string and get all individual pairs in an arry 
+            var cookieArr = document.cookie.split(";");
+            //loop through the array 
+            for(var i = 0; i < cookieArr.length; i++ ){
+              var cookiePair = cookieArr[i].split("=");
+              /*Removing whitespace at the beginning of the cookie name and 
+              compare it with the given string */
+              if(name == cookiePair[0].trim()){
+                  //Decode the cookie value and return 
+                  return decodeURIComponent(cookiePair[1]);
+              }
+            }
+            // Return null if not found
+            return null ;
+          }
+          var cart = JSON.parse(getCookie('cart'))
+          if(cart == undefined ){
+            cart = {}
+            console.log("cart was created |")
+            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+          }
+          console.log('cart:' , cart)
         </script>
   </head>
 
