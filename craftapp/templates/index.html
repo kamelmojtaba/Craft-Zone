@@ -85,6 +85,7 @@
                                  <li><a href="contact.html">Contact Us</a></li>
                               <!--   <li class="last"><a href="#"><img src="{% static 'craftapp/images/search_icon.png' %}" alt="icon"/></a></li>
                               <div class="form-inline my-2 my-lg-0">-->
+<<<<<<< HEAD
                                  <li>
                                     {% if user.is_authenticated %}
                                        {% comment %} <a href="{% url 'logout' %}" class="btn btn-primary btn-sm">Logout</a> {% endcomment %}
@@ -94,6 +95,13 @@
                                        <a href="{% url 'craftapp:user_login' %}" class="btn btn-primary btn-sm">Login</a>
                                     {% endif %}
                                  </li>
+=======
+                                 {% if user.is_authenticated %}
+                                    <a href="{% url 'logout' %}" class="btn btn-primary btn-sm">Logout</a>
+                                 {% else %}
+                                    <a href="{% url 'craftapp:login' %}" class="btn btn-primary btn-sm">Login</a>
+                                 {% endif %}
+>>>>>>> 3bd2b0e2af89dcfce43e558f4bc0eb21d8ed7a6a
                                  <li><a href="{% url 'cart' %}">
                                     <img  id="cart-icon" src="{% static 'craftapp/images/cart.png' %}">
                                     <p id="cart-total">{{cartItems}}</p>
