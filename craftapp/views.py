@@ -140,3 +140,12 @@ def signup(request):
 def user_logout(request):
 	logout(request)
 	return HttpResponseRedirect(reverse('index'))
+
+def Account(request):
+	data = cartData(request)
+	cartItems = data['cartItems']
+	order = data['order']
+	items = data['items']
+
+	context= {'items' :items, 'order' : order , 'cartItems': cartItems , }
+	return render(request, 'account.html', context )

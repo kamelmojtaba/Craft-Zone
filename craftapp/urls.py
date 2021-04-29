@@ -18,4 +18,5 @@ urlpatterns = [
     path('process_order/', views.processOrder, name="process_order"),
     path('LogIn.html', auth_views.LoginView.as_view(template_name="LogIn.html"), name="login"),
     path('signUp.html', views.signup, name="signUp"),
+    path('account', views.Account, name="Account"),
 ]
