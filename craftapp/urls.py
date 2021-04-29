@@ -2,6 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.conf.urls import url
 from . import views
+from .forms import CustomAuthForm
 
 app_name = 'craftapp'
 
@@ -16,7 +17,7 @@ urlpatterns = [
     path('checkout.html', views.checkout, name="checkout"),
     path('update_item/', views.updateItem, name="update_item"),
     path('process_order/', views.processOrder, name="process_order"),
-    path('LogIn.html', auth_views.LoginView.as_view(template_name="LogIn.html"), name="login"),
+    path('LogIn.html', auth_views.LoginView.as_view(template_name="LogIn.html", authentication_form=CustomAuthForm), name="login"),
     path('signUp.html', views.signup, name="signUp"),
     path('account', views.Account, name="Account"),
 ]
