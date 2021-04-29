@@ -81,5 +81,3 @@ class ShippingAddress(models.Model):
 	state = models.CharField(max_length=200, null=True)
 	phone_number = models.CharField(max_length=200, null=True)
 	name = models.CharField(max_length=200, null=True)
-
-

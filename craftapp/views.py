@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 import json
 from .models import *
@@ -8,6 +8,7 @@ from .utils import cookiCart, cartData
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from .forms import SignUpForm
 
 
 def index(request):
@@ -20,7 +21,7 @@ def index(request):
 
 def contact(request):
 	if request.method == "POST":
-		Name = request.POST['Name']
+		Name = request.POST['Name'] 
 		Email = request.POST['Email']
 		Phone = request.POST['Phone']
 		text3 = request.POST['text3']
@@ -119,7 +120,21 @@ def processOrder(request):
 		return JsonResponse('payment done', safe=False)
 
 def signup(request):
-	return render(request, 'signUp.html', {})
+	if request.method == 'POST':
+		form = SignUpForm(request.POST)
+		if form.is_valid():
+			form.save()
+			username = form.cleaned_data.get('username')
+			email = form.cleaned_data.get('email')
+			raw_password = form.cleaned_data.get('password1')
+			user = authenticate(username=username, password=raw_password)
+			customer = Customer(user=user, name=username, email=email)
+			customer.save()
+			login(request, user)
+			return HttpResponseRedirect(reverse('index'))
+	else:
+		form = SignUpForm()
+	return render(request, 'signUp.html', {'form':form})
 
 @login_required
 def user_logout(request):
