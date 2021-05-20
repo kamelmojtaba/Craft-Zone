@@ -196,7 +196,6 @@ body {
   font-size: 13px;
   line-height: 1.8;
   color: #222;
-  background: #f8f8f8;
   font-weight: 400;
   font-family: Poppins; }
 
@@ -248,7 +247,11 @@ body {
   -webkit-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%); }
-
+.sing-btn{
+  background: #1885dc !important;
+  padding: 10px !important;
+  margin: 15%;
+}
 .signup {
   margin-bottom: 150px; }
 
@@ -263,8 +266,10 @@ body {
   margin: 0 55px; }
 
 .form-title {
-  margin-bottom: 33px; }
-
+  margin-bottom: 33px;
+  color: #dc9faf;
+  font-size: 270%;
+}
 .signup-image {
   margin-top: 45px; }
 
@@ -274,7 +279,7 @@ figure {
 
 .form-submit {
   display: inline-block;
-  background: #6dabe4;
+  background: #dc9faf;
   color: #fff;
   border-bottom: none;
   width: auto;
@@ -587,6 +592,6 @@ label.valid {
 
   .social-label {
     margin-right: 0px;
-    margin-bottom: 10px; } }
-
-/*# sourceMappingURL=style.css.map */
+    margin-bottom: 10px; }
+  
+}

@@ -20,4 +20,6 @@ urlpatterns = [
     path('LogIn.html', auth_views.LoginView.as_view(template_name="LogIn.html", authentication_form=CustomAuthForm), name="login"),
     path('signUp.html', views.signup, name="signUp"),
     path('account', views.Account, name="Account"),
+    path('welcome', views.Welcome, name="Welcome"),
+
 ]

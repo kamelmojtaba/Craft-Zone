@@ -21,6 +21,8 @@ urlpatterns = [
     path('signUp.html', views.signup, name="signUp"),
     url('logout/', views.user_logout, name='logout'),
     path('account', views.Account, name="Account"),
+    path('welcome', views.Welcome, name="Welcome"),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

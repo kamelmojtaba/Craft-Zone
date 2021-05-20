@@ -149,3 +149,6 @@ def Account(request):
 
 	context= {'items' :items, 'order' : order , 'cartItems': cartItems , }
 	return render(request, 'account.html', context )
+
+def Welcome(request):
+	return render(request, 'welcome.html', {})

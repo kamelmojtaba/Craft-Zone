@@ -6,82 +6,178 @@
     <!--<meta charset="UTF-8">-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Log in</title>
+    
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="{% static 'craftapp/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
-
     <!-- Main css -->
     <link rel="stylesheet" href="{% static 'craftapp/css/sign.css' %}">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>Log in</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'craftapp/css/bootstrap.min.css' %}">
+    <!-- style css -->
+    <link rel="stylesheet" href="{% static 'craftapp/css/style.css' %}">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="{% static 'craftapp/css/responsive.css' %}">
+    <!-- fevicon -->
+    <link rel="icon" href="{% static 'craftapp/images/fevicon.png' %}" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="{% static 'craftapp/css/jquery.mCustomScrollbar.min.css' %}">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- owl stylesheets -->
+    <link rel="stylesheet" href="{% static 'craftapp/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'craftapp/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
 </head>
 
 <body>
+    <!-- loader  --> 
+        <div class="loader_bg">
+            <div class="loader"><img src=" {% static 'craftapp/images/loading.gif' %}" alt="#" /></div>
+        </div>
+    <!-- end loader -->
+    <!-- Logo -->
+    <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+            <div class="full">
+                <div class="center-desk">
+                    <div class="logo"> <a href="index.html"><img src="{% static 'craftapp/images/logo.png' %}" alt="#"></a> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Sing in  Form -->
+    <section class="sign-in">
+        <div class="container">
+            <div class="signin-content">
+                <div class="signin-image">
+                    <figure><img src="{% static 'craftapp/images/signin-image.jpg' %}" alt="sing up image"></figure>
+                    <a href="signUp.html" class=" btn btn-sm sing-btn btn-primary ">Create an account</a>
+                </div>
 
-    <div class="main">
+                <div class="signin-form">
+                    <h2 class="form-title">Sign In</h2>
+                    {% if form.errors %}
+                        <p>Your username and password didn't match. Please try again.</p>
+                    {% endif %}
 
-        <!-- Sing in  Form -->
-        <section class="sign-in">
-            <div class="container">
-                <div class="signin-content">
-                    <div class="signin-image">
-                        <figure><img src="{% static 'craftapp/images/signin-image.jpg' %}" alt="sing up image"></figure>
-                        <a href="signUp.html" class="signup-image-link">Create an account</a>
-                    </div>
-
-                    <div class="signin-form">
-                        <h2 class="form-title">Sign In</h2>
-                        {% if form.errors %}
-                            <p>Your username and password didn't match. Please try again.</p>
+                    {% if next %}
+                        {% if user.is_authenticated %}
+                            <p>Your account doesn't have access to this page. To proceed,
+                                please login with an account that has access.</p>
+                        {% else %}
+                            <p>Please login to see this page.</p>
                         {% endif %}
+                    {% endif %}
 
-                        {% if next %}
-                            {% if user.is_authenticated %}
-                                <p>Your account doesn't have access to this page. To proceed,
-                                    please login with an account that has access.</p>
-                            {% else %}
-                                <p>Please login to see this page.</p>
-                            {% endif %}
-                        {% endif %}
-
-                        <form method="POST" class="register-form" id="login-form">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                {{ form.username.errors }}
-                                <label for="{{ form.username.id_for_label"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                {{ form.username }}
-                            </div>
-                            <div class="form-group">
-                                {{ form.password.errors }}
-                                <label for="{{ form.username.id_for_label }}"><i class="zmdi zmdi-lock"></i></label>
-                                {{ form.password }}
-                            </div>
-                            <div class="form-group">
-                                <input type="checkbox" name="remember_me" id="remember-me" class="agree-term" />
-                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember
-                                    me</label>
-                            </div>
-                            <div class="form-group form-button">
-                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
-                            </div>
-                        </form>
-                        <div class="social-login">
-                            <span class="social-label">Or login with</span>
-                            <ul class="socials">
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
-                            </ul>
+                    <form method="POST" class="register-form" id="login-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.username.errors }}
+                            <label for="{{ form.username.id_for_label"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            {{ form.username }}
                         </div>
+                        <div class="form-group">
+                            {{ form.password.errors }}
+                            <label for="{{ form.username.id_for_label }}"><i class="zmdi zmdi-lock"></i></label>
+                            {{ form.password }}
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="remember_me" id="remember-me" class="agree-term" />
+                            <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember
+                                me</label>
+                        </div>
+                        <div class="form-group form-button">
+                            <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                        </div>
+                    </form>
+                    <div class="social-login">
+                        <span class="social-label">Or login with</span>
+                        <ul class="socials">
+                            <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                            <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                            <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </section>
+            <!-- footer start-->
+            <div id="plant" class="footer layout_padding">
+                <div class="container">
+                    <p>© 2021 All Rights Reserved. To<a href="https://html.design/"> Craft Zone </a></p>
+                </div>
+            </div>            
+        </div>
+    </section>
 
-    </div>
+    <style scoped >
+        .logo {
+            float: inherit;
+            padding-bottom: 0%;
+            padding-top: 10%; 
+            text-align: center;}
 
-    <!-- JS -->
+        .footer p a {
+        color: #dc9faf;
+        }
+        .footer p {
+        color: black;
+        }
+        .footer {
+        width: 100%;
+        float: left;
+        background-color: #fff;
+        height: auto;
+        padding: 0px;
+        }
+    </style>
+    
+    <!-- Javascript files-->
+    <script src="{% static 'craftapp/js/jquery.min.js' %}"></script>
+    <script src="{% static 'craftapp/js/popper.min.js' %}"></script>
+    <script src="{% static 'craftapp/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'craftapp/js/jquery-3.0.0.min.js' %}js/jquery-3.0.0.min.js"></script>
+    <script src="{% static 'craftapp/js/plugin.js' %}"></script>
     <script src="{% static 'craftapp/js/jquery.min.js' %}"></script>
     <script src="{% static 'craftapp/js/sign.js' %}"></script>
+    <!-- sidebar -->
+    <script src="{% static 'craftapp/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    <script src="{% static 'craftapp/js/custom.js' %}"></script>
+    <!-- javascript --> 
+    <script src="{% static 'craftapp/js/owl.carousel.js' %}"></script>
+    <script src="{% static 'craftapp/js/cart.js' %}"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        $(".fancybox").fancybox({
+        openEffect: "none",
+        closeEffect: "none"
+        });
+         
+        $(".zoom").hover(function(){
+         
+        $(this).addClass('transition');
+        }, function(){
+         
+        $(this).removeClass('transition');
+        });
+        });
+
+        var view = '{{product.IMP}}'
+        if (view == 'True') {
+            document.getElementById('payment').classList.remove('hidden')
+        }
+        console.log(view)
+         
+    </script> 
 </body>
 
 </html>
